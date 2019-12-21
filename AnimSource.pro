@@ -4,12 +4,20 @@
 
 TEMPLATE = app
 TARGET = AnimSource
-QT += core gui widgets
-INCLUDEPATH += . ./sw-common
-QMAKE_CXXFLAGS += -std=c++11 -Wall -pedantic
-QMAKE_LFLAGS += -lm
+QT += core gui widgets network
+#QMAKE_CXX = clang++
+#QMAKE_CXXFLAGS += -std=c++11 -Wall -Wno-narrowing -pedantic -O3 -g
+#QMAKE_LFLAGS += -lm
+
+CONFIG += c++17
 
 # Input
-HEADERS += animsender.h animfactory.h mainwindow.h timer.h chessanim.h verticalanim.h solidanim.h
-SOURCES += main.cpp animsender.cpp animfactory.cpp mainwindow.cpp timer.cpp chessanim.cpp verticalanim.cpp solidanim.cpp
-LIBS += sw-common/lib/libmatrix_sw-common.a
+HEADERS += animsender.h animfactory.h mainwindow.h chessanim.h verticalanim.h solidanim.h
+SOURCES += main.cpp animsender.cpp animfactory.cpp mainwindow.cpp chessanim.cpp verticalanim.cpp solidanim.cpp
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../libmueb/release/ -lmueb
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../libmueb/debug/ -lmueb
+else:unix: LIBS += -L$$OUT_PWD/../libmueb/ -lmueb
+
+INCLUDEPATH += $$PWD/../libmueb/include/libmueb
+DEPENDPATH += $$PWD/../libmueb/include/libmueb

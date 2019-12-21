@@ -1,45 +1,31 @@
 #ifndef DRAW_SENDER_H_INCLUDED
 #define DRAW_SENDER_H_INCLUDED
 
-#include "timer.h"
-#include "interface/frame.h"
-#include "interface/sourceconfiguration.h"
-#include "interface/sourceinterface.h"
-#include "interface/daemonsourceinterface.h"
-#include "stub/sourcedaemon.hpp"
-#include "ipc-rpc/localsocket.h"
-#include "ipc-rpc/pipeinterpreter.hpp"
-#include "ipc-rpc/pipeinterpreterbase.hpp"
-#include "core/color.h"
-#include <string>
-#include <mutex>
-#include <memory>
-#include <QObject>
 #include <QColor>
+#include <QObject>
+#include <string>
+#include "muebtransmitter.h"
 
 class AnimInterface {
-	public:
-		virtual Frame nextFrame() = 0;
-		virtual ~AnimInterface();
+ public:
+  virtual QImage nextFrame() = 0;
 };
 
-class AnimSender: public QObject, public SourceInterface {
-	Q_OBJECT
-	private:
-		std::unique_ptr<LocalSocket> socket_;
-		std::unique_ptr<PipeInterpreter<AnimSender, DaemonSourceInterface>> pipe_;
-		SourceConfiguration config_;
-		int id_;
-		std::unique_ptr<AnimInterface> anim_;
-		std::unique_ptr<Timer> timer_;
-		std::mutex m_;
-		void packetCallback();
-	public:
-		AnimSender(const std::string& socket_name);
-		virtual ~AnimSender();
-		const SourceConfiguration& getSourceConfiguration() const;
-	public slots:
-		void setAnim(AnimInterface* anim);
+class AnimSender : public QObject {
+  Q_OBJECT
+
+ public:
+  AnimSender(QObject* parent = nullptr);
+ public slots:
+  void setAnim(AnimInterface* anim);
+
+ private:
+  std::unique_ptr<AnimInterface> anim_;
+  MuebTransmitter transmitter_;
+
+  // QObject interface
+ protected:
+  void timerEvent(QTimerEvent* event) override;
 };
 
 #endif
