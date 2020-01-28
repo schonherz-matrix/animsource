@@ -1,64 +1,63 @@
 #include "verticalanim.h"
 
-VerticalAnim::VerticalAnim(const QColor& primary_color,
-                           const QColor& secondary_color, int num,
-                           bool is_vertical)
-    : primary_color_{primary_color},
-      secondary_color_{secondary_color},
-      num_{num},
-      frame_(32, 26, QImage::Format_RGB888) {
-  is_vertical_ = is_vertical;
-  height = 26;
-  width = 32;
-  i_ = 0;
+VerticalAnim::VerticalAnim(const QColor& primaryColor,
+                           const QColor& secondary_color, bool isVertical)
+    : AbstractAnimation(primaryColor, secondary_color),
+      m_isVertical(isVertical) {
+  m_animationSpeed = 5;
 }
 
 QImage VerticalAnim::nextFrame() {
-  for (int x = 0; x < width; x++) {
-    for (int y = 0; y < height; y++) {
+  for (int row = 0; row < m_frame.height(); row++) {
+    for (int col = 0; col < m_frame.width(); col++) {
       int r = 0;
       int g = 0;
+      int number = 0;
 
-      if (is_vertical_) {
-        if (((i_ + x * 10) % 512) > 255) {
-          r = 255 - ((i_ + x * 10) % 256);
+      if (m_isVertical) {
+        number = m_tick + row * 10;
+
+        if ((number % 512) > 255) {
+          r = 255 - (number % 256);
         } else {
-          r = (i_ + x * 10) % 256;
+          r = number % 256;
         }
 
-        if ((((i_ + 256) + x * 10) % 512) > 255) {
-          g = 255 - ((i_ + x * 10) % 256);
+        if ((((m_tick + 256) + row * 10) % 512) > 255) {
+          g = 255 - (number % 256);
         } else {
-          g = (i_ + x * 10) % 256;
+          g = number % 256;
         }
       } else {
-        if (((i_ + y * 10) % 512) > 255) {
-          r = 255 - ((i_ + y * 10) % 256);
+        number = m_tick + col * 10;
+
+        if ((number % 512) > 255) {
+          r = 255 - (number % 256);
         } else {
-          r = (i_ + y * 10) % 256;
+          r = number % 256;
         }
 
-        if ((((i_ + 256) + y * 10) % 512) > 255) {
-          g = 255 - ((i_ + y * 10) % 256);
+        if ((((m_tick + 256) + col * 10) % 512) > 255) {
+          g = 255 - (number % 256);
         } else {
-          g = (i_ + y * 10) % 256;
+          g = number % 256;
         }
       }
 
-      double first_percent = (double)r / 255;
-      double second_percent = (double)g / 255;
+      double first_percent = r / 255.0;
+      double second_percent = g / 255.0;
 
-      frame_.setPixelColor(
-          x, y,
-          QColor(primary_color_.red() * first_percent +
-                     secondary_color_.red() * second_percent,
-                 primary_color_.green() * first_percent +
-                     secondary_color_.green() * second_percent,
-                 primary_color_.blue() * first_percent +
-                     secondary_color_.blue() * second_percent));
+      m_frame.setPixelColor(
+          col, row,
+          QColor(m_primaryColor.red() * first_percent +
+                     m_secondaryColor.red() * second_percent,
+                 m_primaryColor.green() * first_percent +
+                     m_secondaryColor.green() * second_percent,
+                 m_primaryColor.blue() * first_percent +
+                     m_secondaryColor.blue() * second_percent));
     }
   }
 
-  i_ += num_;
-  return frame_;
+  m_tick++;
+  return m_frame;
 }

@@ -1,23 +1,17 @@
 #ifndef VERTICALANIM_H
 #define VERTICALANIM_H
 
-#include <QColor>
-#include "animsender.h"
+#include "abstractanimation.h"
 
-class VerticalAnim : public AnimInterface {
- private:
-  QColor primary_color_, secondary_color_;
-  int num_;
-  int height;
-  int width;
-  int i_;
-  bool is_vertical_;
-  QImage frame_;
-
+class VerticalAnim : public AbstractAnimation {
  public:
   VerticalAnim(const QColor& primary_color, const QColor& secondary_color,
-               int num, bool is_vertical);
+               bool isVertical);
   QImage nextFrame() override;
+
+ private:
+  int m_tick{0};
+  bool m_isVertical;
 };
 
 #endif  // VERTICALANIM_H

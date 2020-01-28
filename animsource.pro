@@ -18,21 +18,24 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 HEADERS += \
+    src/abstractanimation.h \
     src/animfactory.h \
     src/animsender.h \
     src/chessanim.h \
-    src/mainwindow.h \
     src/solidanim.h \
     src/verticalanim.h
 
 SOURCES += \
+    src/abstractanimation.cpp \
     src/animfactory.cpp \
     src/animsender.cpp \
     src/chessanim.cpp \
     src/main.cpp \
-    src/mainwindow.cpp \
     src/solidanim.cpp \
     src/verticalanim.cpp
+
+FORMS += \
+    src/animsender.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

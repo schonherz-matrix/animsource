@@ -3,29 +3,28 @@
 #include "solidanim.h"
 #include "verticalanim.h"
 
-const std::map<std::string, AnimFactory::AnimType> AnimFactory::AnimTypeString =
-    {{"Chess", CHESS},
-     {"Vertical", VERTICAL},
-     {"Horizontal", HORIZONTAL},
-     {"Solid", SOLID}};
+AnimFactory::AnimFactory(QObject *parent) : QObject(parent) {}
 
-AnimInterface *AnimFactory::getAnim(AnimType type, const QColor &primary_color,
-                                    const QColor &secondary_color, int num) {
+const std::map<AnimFactory::AnimType, QString> AnimFactory::AnimTypeString = {
+    {CHESS, "Chess"},
+    {VERTICAL, "Vertical"},
+    {HORIZONTAL, "Horizontal"},
+    {SOLID, "Solid"}};
+
+std::unique_ptr<AbstractAnimation> AnimFactory::getAnimation(
+    AnimType type, const QColor &primaryColor, const QColor &secondaryColor) {
   switch (type) {
-    case CHESS: {
-      return new ChessAnim{primary_color, secondary_color, num};
-    }
-    case VERTICAL: {
-      return new VerticalAnim{primary_color, secondary_color, num, true};
-    }
-    case HORIZONTAL: {
-      return new VerticalAnim{primary_color, secondary_color, num, false};
-    }
-    case SOLID: {
-      return new SolidAnim{primary_color, secondary_color, num};
-    }
-    default: {
-      return nullptr;
-    }
+    case CHESS:
+      return std::make_unique<ChessAnim>(primaryColor, secondaryColor);
+    case VERTICAL:
+      return std::make_unique<VerticalAnim>(primaryColor, secondaryColor, true);
+
+    case HORIZONTAL:
+      return std::make_unique<VerticalAnim>(primaryColor, secondaryColor,
+                                            false);
+    case SOLID:
+      return std::make_unique<SolidAnim>(primaryColor, secondaryColor);
   }
+
+  return nullptr;
 }

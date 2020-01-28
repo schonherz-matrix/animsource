@@ -1,17 +1,24 @@
-#ifndef ANIM_FACTORY_H_INCLUDED
-#define ANIM_FACTORY_H_INCLUDED
+#ifndef ANIM_FACTORY_H
+#define ANIM_FACTORY_H
 
-#include <QColor>
+#include <QString>
 #include <map>
-#include <string>
-#include "animsender.h"
+#include "abstractanimation.h"
+#include "memory"
 
-class AnimFactory {
+class AnimFactory : public QObject {
+  Q_OBJECT
+
  public:
+  explicit AnimFactory(QObject *parent = nullptr);
+
   enum AnimType { CHESS, VERTICAL, HORIZONTAL, SOLID };
-  const static std::map<std::string, AnimFactory::AnimType> AnimTypeString;
-  static AnimInterface *getAnim(AnimType type, const QColor &primary_color,
-                                const QColor &secondary_color, int num);
+  const static std::map<AnimFactory::AnimType, QString> AnimTypeString;
+  static std::unique_ptr<AbstractAnimation> getAnimation(
+      AnimType type, const QColor &primaryColor, const QColor &secondaryColor);
+
+ private:
+  Q_ENUM(AnimType)
 };
 
 #endif

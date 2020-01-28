@@ -1,21 +1,23 @@
-#ifndef CHESS_ANIM_H_INCLUDED
-#define CHESS_ANIM_H_INCLUDED
+#ifndef CHESS_ANIM_H
+#define CHESS_ANIM_H
 
-#include <QColor>
-#include "animsender.h"
+#include "abstractanimation.h"
 
-class ChessAnim : public AnimInterface {
- private:
-  QColor primary_color_, secondary_color_;
-  int fl_;
-  int cntr_;
-  bool first_;
-  QImage f1_, f2_;
-
+class ChessAnim : public AbstractAnimation {
  public:
-  ChessAnim(const QColor& primary_color, const QColor& secondary_color,
-            int num);
+  ChessAnim(const QColor& primaryColor, const QColor& secondaryColor);
   QImage nextFrame() override;
+
+  // AbstractAnimation interface
+ protected:
+  void primaryColorChanged() override;
+  void secondaryColorChanged() override;
+
+ private:
+  bool m_first{false};
+  QImage m_secondFrame{m_frame};
+
+  void generateFrames();
 };
 
 #endif
