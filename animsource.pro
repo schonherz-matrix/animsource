@@ -22,17 +22,23 @@ HEADERS += \
     src/animfactory.h \
     src/animsender.h \
     src/chessanim.h \
+    src/columnanim.h \
+    src/rowanim.h \
     src/solidanim.h \
-    src/verticalanim.h
+    src/verticalanim.h \
+    src/windowanim.h
 
 SOURCES += \
     src/abstractanimation.cpp \
     src/animfactory.cpp \
     src/animsender.cpp \
     src/chessanim.cpp \
+    src/columnanim.cpp \
     src/main.cpp \
+    src/rowanim.cpp \
     src/solidanim.cpp \
-    src/verticalanim.cpp
+    src/verticalanim.cpp \
+    src/windowanim.cpp
 
 FORMS += \
     src/animsender.ui
