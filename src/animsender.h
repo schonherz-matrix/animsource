@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <memory>
+
 #include "animfactory.h"
 #include "muebtransmitter.h"
 
@@ -14,8 +15,7 @@ class AnimSender : public QWidget {
   Q_OBJECT
 
  public:
-  AnimSender(QWidget* parent = nullptr,
-             std::shared_ptr<MuebTransmitter> transmitter = nullptr);
+  AnimSender(QWidget* parent = nullptr);
   ~AnimSender();
 
   // QObject interface
@@ -23,7 +23,7 @@ class AnimSender : public QWidget {
   void timerEvent(QTimerEvent* event) override;
 
  private:
-  std::shared_ptr<MuebTransmitter> m_transmitter;
+  MuebTransmitter& m_transmitter;
   QColor m_primaryColor{Qt::black}, m_secondaryColor{Qt::black};
   std::unique_ptr<AbstractAnimation> m_animation;
   Ui::AnimSender* ui{nullptr};

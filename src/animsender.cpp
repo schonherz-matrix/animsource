@@ -1,12 +1,12 @@
 #include "animsender.h"
+
 #include "libmueb_global.h"
 #include "ui_animsender.h"
 
-AnimSender::AnimSender(QWidget* parent,
-                       std::shared_ptr<MuebTransmitter> transmitter)
-    : QWidget(parent), ui(new Ui::AnimSender) {
-  if (!transmitter) m_transmitter = std::make_shared<MuebTransmitter>(this);
-
+AnimSender::AnimSender(QWidget* parent)
+    : QWidget(parent),
+      m_transmitter(MuebTransmitter::getInstance()),
+      ui(new Ui::AnimSender) {
   ui->setupUi(this);
   ui->colorDialog->setWindowFlags(Qt::Widget);
   ui->colorDialog->setOptions(QColorDialog::DontUseNativeDialog |
@@ -24,7 +24,7 @@ AnimSender::AnimSender(QWidget* parent,
 AnimSender::~AnimSender() { delete ui; }
 
 void AnimSender::timerEvent(QTimerEvent*) {
-  if (m_animation) m_transmitter->sendFrame(m_animation->nextFrame());
+  if (m_animation) m_transmitter.sendFrame(m_animation->nextFrame());
 }
 
 static void inline setButtonColor(QPushButton* button, const QColor& color) {
