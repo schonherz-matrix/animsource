@@ -1,6 +1,5 @@
 #include "animsender.h"
 
-#include "libmueb_global.h"
 #include "ui_animsender.h"
 
 AnimSender::AnimSender(QWidget* parent)

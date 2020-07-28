@@ -2,7 +2,8 @@
 #define ABSTRACTANIMATION_H
 
 #include <QImage>
-#include "libmueb_global.h"
+
+#include "libmuebconfig.h"
 
 class AbstractAnimation {
  public:

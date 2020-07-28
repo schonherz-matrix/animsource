@@ -1,6 +1,6 @@
 #include "windowanim.h"
 
-#include "libmueb_global.h"
+#include "libmuebconfig.h"
 
 WindowAnim::WindowAnim(const QColor& primaryColor, const QColor& secondaryColor)
     : AbstractAnimation(primaryColor, secondaryColor) {

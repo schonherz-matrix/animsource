@@ -1,6 +1,6 @@
 #include "columnanim.h"
 
-#include "libmueb_global.h"
+#include "libmuebconfig.h"
 
 ColumnAnim::ColumnAnim(const QColor &primaryColor, const QColor &secondaryColor)
     : AbstractAnimation(primaryColor, secondaryColor) {

@@ -1,6 +1,6 @@
 #include "rowanim.h"
 
-#include "libmueb_global.h"
+#include "libmuebconfig.h"
 
 RowAnim::RowAnim(const QColor &primaryColor, const QColor &secondaryColor)
     : AbstractAnimation(primaryColor, secondaryColor) {}
