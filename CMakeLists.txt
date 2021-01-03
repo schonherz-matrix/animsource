@@ -27,7 +27,7 @@ if(NOT DEFINED MATRIX_SIMPLE)
 endif()
 
 add_executable(
-  ${PROJECT_NAME}
+  ${PROJECT_NAME} WIN32
   src/abstractanimation.cpp
   src/abstractanimation.h
   src/animfactory.cpp
@@ -56,7 +56,6 @@ install(
   TARGETS ${PROJECT_NAME}
   EXPORT "${TARGETS_EXPORT_NAME}"
   RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
-
 
 set(CPACK_PACKAGE_VENDOR "PROJECT_HOMEPAGE_URL")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY ${PROJECT_DESCRIPTION})
