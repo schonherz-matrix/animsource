@@ -1,8 +1,10 @@
 #ifndef ANIM_FACTORY_H
 #define ANIM_FACTORY_H
 
+#include <QObject>
 #include <QString>
 #include <map>
+
 #include "abstractanimation.h"
 #include "memory"
 

@@ -1,9 +1,17 @@
 #include "abstractanimation.h"
 
+#include "muebtransmitter.h"
+
 AbstractAnimation::AbstractAnimation(const QColor &primaryColor,
                                      const QColor &secondaryColor)
     : m_primaryColor(primaryColor), m_secondaryColor(secondaryColor) {
-  m_frame.fill(Qt::black);
+  auto &transmitter = libmueb::MuebTransmitter::Instance();
+  m_frame = transmitter.frame();
+  window_per_floor_ = transmitter.window_per_floor();
+  quint32 windows_ = transmitter.windows();
+  quint32 floors_ = transmitter.floors();
+  horizontal_pixel_unit_ = transmitter.horizontal_pixel_unit();
+  vertical_pixel_unit_ = transmitter.vertical_pixel_unit();
 }
 
 void AbstractAnimation::setPrimaryColor(const QColor &color) {
@@ -16,7 +24,4 @@ void AbstractAnimation::setSecondaryColor(const QColor &color) {
   secondaryColorChanged();
 }
 
-int AbstractAnimation::animationSpeed() const
-{
-    return m_animationSpeed;
-}
+int AbstractAnimation::animationSpeed() const { return m_animationSpeed; }

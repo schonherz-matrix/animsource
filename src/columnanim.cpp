@@ -1,21 +1,17 @@
 #include "columnanim.h"
 
-#include "libmuebconfig.h"
-
 ColumnAnim::ColumnAnim(const QColor &primaryColor, const QColor &secondaryColor)
     : AbstractAnimation(primaryColor, secondaryColor) {
   generateFrames();
 }
 
 void ColumnAnim::generateFrames() {
-  using namespace libmueb::defaults;
+  for (int windowIdx = 0; windowIdx < windows_; ++windowIdx) {
+    auto row = (windowIdx / window_per_floor_) * vertical_pixel_unit_;
+    auto col = (windowIdx % window_per_floor_) * horizontal_pixel_unit_;
 
-  for (int windowIdx = 0; windowIdx < windows; ++windowIdx) {
-    auto row = (windowIdx / windowPerRow) * verticalPixelUnit;
-    auto col = (windowIdx % windowPerRow) * horizontalPixelUnit;
-
-    for (int y = 0; y < verticalPixelUnit; ++y) {
-      for (int x = 0; x < horizontalPixelUnit; ++x) {
+    for (int y = 0; y < vertical_pixel_unit_; ++y) {
+      for (int x = 0; x < horizontal_pixel_unit_; ++x) {
         if (windowIdx % 2 == 0)
           m_frame.setPixelColor(col + x, row + y, m_primaryColor);
         else

@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.16)
 
 project(
-  animsource
-  DESCRIPTION "Widget for sending predefined animations"
-  HOMEPAGE_URL "kszk.bme.hu"
-  LANGUAGES CXX)
+        animsource
+        DESCRIPTION "Widget for sending predefined animations"
+        HOMEPAGE_URL "kszk.bme.hu"
+        LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -15,52 +15,33 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_compile_definitions(LIBMUEB_AS_DLL)
-
 find_package(
-  Qt5
-  COMPONENTS Widgets
-  REQUIRED)
-
-if(NOT DEFINED MATRIX_SIMPLE)
-  find_package(libmueb 2.0 REQUIRED)
-endif()
+        Qt6
+        COMPONENTS Widgets
+        REQUIRED)
 
 add_executable(
-  ${PROJECT_NAME} WIN32
-  src/abstractanimation.cpp
-  src/abstractanimation.h
-  src/animfactory.cpp
-  src/animfactory.h
-  src/animsender.cpp
-  src/animsender.h
-  src/animsender.ui
-  src/chessanim.cpp
-  src/chessanim.h
-  src/columnanim.cpp
-  src/columnanim.h
-  src/main.cpp
-  src/rowanim.cpp
-  src/rowanim.h
-  src/solidanim.cpp
-  src/solidanim.h
-  src/verticalanim.cpp
-  src/verticalanim.h
-  src/windowanim.cpp
-  src/windowanim.h)
+        ${PROJECT_NAME} WIN32
+        src/abstractanimation.cpp
+        src/abstractanimation.h
+        src/animfactory.cpp
+        src/animfactory.h
+        src/animsender.cpp
+        src/animsender.h
+        src/animsender.ui
+        src/chessanim.cpp
+        src/chessanim.h
+        src/columnanim.cpp
+        src/columnanim.h
+        src/main.cpp
+        src/rowanim.cpp
+        src/rowanim.h
+        src/solidanim.cpp
+        src/solidanim.h
+        src/verticalanim.cpp
+        src/verticalanim.h
+        src/windowanim.cpp
+        src/windowanim.h)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets
-                                              libmueb::muebtransmitter)
-
-install(
-  TARGETS ${PROJECT_NAME}
-  EXPORT "${TARGETS_EXPORT_NAME}"
-  RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
-
-set(CPACK_PACKAGE_VENDOR ${PROJECT_HOMEPAGE_URL})
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY ${PROJECT_DESCRIPTION})
-set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
-set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
-set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
-set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
-include(CPack)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets
+        muebtransmitter)

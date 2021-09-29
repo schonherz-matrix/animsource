@@ -4,7 +4,7 @@ VerticalAnim::VerticalAnim(const QColor& primaryColor,
                            const QColor& secondary_color, bool isVertical)
     : AbstractAnimation(primaryColor, secondary_color),
       m_isVertical(isVertical) {
-  m_animationSpeed = 5;
+  m_animationSpeed = 16;
 }
 
 QImage VerticalAnim::nextFrame() {

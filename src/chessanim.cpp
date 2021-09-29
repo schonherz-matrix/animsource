@@ -1,6 +1,6 @@
 #include "chessanim.h"
 
-#include "libmuebconfig.h"
+#include "muebtransmitter.h"
 
 ChessAnim::ChessAnim(const QColor& primaryColor, const QColor& secondaryColor)
     : AbstractAnimation(primaryColor, secondaryColor) {
@@ -8,18 +8,16 @@ ChessAnim::ChessAnim(const QColor& primaryColor, const QColor& secondaryColor)
 }
 
 void ChessAnim::generateFrames() {
-  using namespace libmueb::defaults;
-
   for (int row = 0; row < m_frame.height(); row++) {
     for (int col = 0; col < m_frame.width(); col++) {
       m_frame.setPixelColor(
           col, row,
-          ((col / horizontalPixelUnit + row / verticalPixelUnit) % 2)
+          ((col / horizontal_pixel_unit_ + row / vertical_pixel_unit_) % 2)
               ? m_primaryColor
               : m_secondaryColor);
       m_secondFrame.setPixelColor(
           col, row,
-          ((col / horizontalPixelUnit + row / verticalPixelUnit) % 2)
+          ((col / horizontal_pixel_unit_ + row / vertical_pixel_unit_) % 2)
               ? m_secondaryColor
               : m_primaryColor);
     }

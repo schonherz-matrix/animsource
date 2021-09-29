@@ -23,7 +23,7 @@ class AnimSender : public QWidget {
   void timerEvent(QTimerEvent* event) override;
 
  private:
-  MuebTransmitter& m_transmitter;
+  libmueb::MuebTransmitter& transmitter_;
   QColor m_primaryColor{Qt::black}, m_secondaryColor{Qt::black};
   std::unique_ptr<AbstractAnimation> m_animation;
   Ui::AnimSender* ui{nullptr};

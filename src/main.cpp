@@ -1,5 +1,6 @@
 #include <QApplication>
 #include <iostream>
+
 #include "animsender.h"
 
 int main(int argc, char *argv[]) {

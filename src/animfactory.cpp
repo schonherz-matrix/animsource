@@ -1,4 +1,5 @@
 #include "animfactory.h"
+
 #include "chessanim.h"
 #include "columnanim.h"
 #include "rowanim.h"

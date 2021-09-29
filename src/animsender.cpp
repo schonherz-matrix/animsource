@@ -4,7 +4,7 @@
 
 AnimSender::AnimSender(QWidget* parent)
     : QWidget(parent),
-      m_transmitter(MuebTransmitter::getInstance()),
+      transmitter_(libmueb::MuebTransmitter::Instance()),
       ui(new Ui::AnimSender) {
   ui->setupUi(this);
   ui->colorDialog->setWindowFlags(Qt::Widget);
@@ -23,7 +23,7 @@ AnimSender::AnimSender(QWidget* parent)
 AnimSender::~AnimSender() { delete ui; }
 
 void AnimSender::timerEvent(QTimerEvent*) {
-  if (m_animation) m_transmitter.sendFrame(m_animation->nextFrame());
+  if (m_animation) transmitter_.SendFrame(m_animation->nextFrame());
 }
 
 static void inline setButtonColor(QPushButton* button, const QColor& color) {
