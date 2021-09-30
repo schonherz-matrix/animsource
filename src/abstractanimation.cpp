@@ -8,8 +8,8 @@ AbstractAnimation::AbstractAnimation(const QColor &primaryColor,
   auto &transmitter = libmueb::MuebTransmitter::Instance();
   m_frame = transmitter.frame();
   window_per_floor_ = transmitter.window_per_floor();
-  quint32 windows_ = transmitter.windows();
-  quint32 floors_ = transmitter.floors();
+  windows_ = transmitter.windows();
+  floors_ = transmitter.floors();
   horizontal_pixel_unit_ = transmitter.horizontal_pixel_unit();
   vertical_pixel_unit_ = transmitter.vertical_pixel_unit();
 }

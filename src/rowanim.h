@@ -10,8 +10,16 @@ class RowAnim : public AbstractAnimation {
   // AbstractAnimation interface
   QImage nextFrame() override;
 
+  // AbstractAnimation interface
+ protected:
+  void primaryColorChanged() override;
+  void secondaryColorChanged() override;
+
  private:
-  int m_row{0};
+  QImage m_secondFrame{m_frame};
+  bool m_first{false};
+
+  void generateFrames();
 };
 
 #endif  // ROWANIM_H
